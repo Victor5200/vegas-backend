@@ -6,8 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Collection;
 
 @Data
@@ -17,10 +16,11 @@ import java.util.Collection;
 public class UsuarioModel implements UserDetails {
 
     @Id
+    @Column(nullable = false,length = 50)
     private String login;
-
+    @Column(nullable = false, length = 50)
     private String nomeCompleto;
-
+    @Column(nullable = false, length = 100)
     private String senha;
 
     @Override
