@@ -13,11 +13,10 @@ import javax.persistence.Id;
 @Entity
 public class ProdutoModel {
 
-
-    private String nome;
-
     @Id
     private Long codigoProduto;
+
+    private String nome;
 
     private Float valorVenda;
 
