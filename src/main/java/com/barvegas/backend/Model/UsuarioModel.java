@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Data
 @Entity
@@ -15,10 +16,16 @@ public class UsuarioModel implements UserDetails {
     @Id
     @Column(nullable = false,length = 50)
     private String login;
-    @Column(nullable = true, length = 50)
-    private String nomeCompleto;
     @Column(nullable = false, length = 100)
     private String senha;
+
+    @ManyToMany
+    @JoinTable(name = "usuario_roles", joinColumns = @JoinColumn(
+            name = "usuario_id",referencedColumnName = "login"),
+            inverseJoinColumns = @JoinColumn(name = "role_id",
+                    referencedColumnName = "nomeRole"
+    ))
+    private List<Role> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

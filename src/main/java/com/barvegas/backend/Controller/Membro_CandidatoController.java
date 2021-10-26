@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(path = "/api")
 @Api(value = "API REST Produtos")
 @CrossOrigin(origins = "*")
 public class Membro_CandidatoController {
@@ -20,5 +20,10 @@ public class Membro_CandidatoController {
     @ApiOperation(value = "Salva um novo membro ou candidato.")
     public Membro_CanditatoModel saveMembCandi(@RequestBody Membro_CanditatoModel newMemCan){
         return membroCandidatoService.saveMembCandi(newMemCan);
+    }
+
+    @GetMapping(path = "/membro")
+    public String teste(){
+        return "CARALHOOOOOOOOOO";
     }
 }
