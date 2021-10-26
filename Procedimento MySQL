@@ -1,0 +1,31 @@
+Comandos que devem ser executados para salvar usuário no Banco MySQL
+
+:$ mysql -uroot -p
+*senha: admin
+
+mysql> use baraap;
+mysql> show tables;
+
++------------------------+
+| Tables_in_barapp       |
++------------------------+
+| hibernate_sequence     |
+| membro_canditato_model |
+| produto_model          |
+| usuario_model          |
++------------------------+
+4 rows in set (0,01 sec)
+
+mysql> describe usuario_model;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| login         | varchar(50)  | NO   | PRI | NULL    |       |
+| nome_completo | varchar(50)  | NO   |     | NULL    |       |
+| senha         | varchar(100) | NO   |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+3 rows in set (0,00 sec)
+
+mysql> insert into usuario_model(login,nome_completo,senha) value('bruno','BrunoLopes','$2a$10$BktQYknuhElP2jntW/PdZetxWOLZTpd7.SzpODRhoR.9XGBQDrixy');
+
+Desta forma e salvo um usuario na tabela usuario_model
