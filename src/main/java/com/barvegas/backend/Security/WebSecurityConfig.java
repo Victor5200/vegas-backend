@@ -19,25 +19,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private ImplementsUserDetailsService userDetailsService;
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception{
-        http.csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/").permitAll() //Raiz com permissão aberta
-                .anyRequest().authenticated()//Qualquer outra requisição precisa de login
-                .and().formLogin().permitAll()//Com essa notação qualquer usuario tem acesso ao formulário de login
-                .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));//A qualquer momento
-                                                                  // quando chamado o Endpoint "/logout" encerra a sessão
-    }
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception{
+//        http.csrf().disable().authorizeRequests()
+//                .antMatchers(HttpMethod.GET, "/").permitAll() //Raiz com permissão aberta
+//                .anyRequest().authenticated()//Qualquer outra requisição precisa de login
+//                .and().formLogin().permitAll()//Com essa notação qualquer usuario tem acesso ao formulário de login
+//                .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));//A qualquer momento
+//                                                                  // quando chamado o Endpoint "/logout" encerra a sessão
+//    }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-        auth.userDetailsService(userDetailsService)
-                .passwordEncoder(new BCryptPasswordEncoder()); //Usuário no banco
-
-    }
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception{
+//        auth.userDetailsService(userDetailsService)
+//                .passwordEncoder(new BCryptPasswordEncoder()); //Usuário no banco
+//
+//    }
 
     @Override
     public void configure(WebSecurity web) throws Exception{
-        web.ignoring().antMatchers("/materialize/**", "/style/**");//Não bloqueie as páginas estáticas
+        web.ignoring().antMatchers("/materialize/**", "/style/**","/v2/api-docs",
+                "/configuration/ui",
+                "/swagger-resources/",
+                "/configuration/security",
+                "/swagger-ui.html",
+                "/webjars/");//Não bloqueie as páginas estáticas
     }
+
 }

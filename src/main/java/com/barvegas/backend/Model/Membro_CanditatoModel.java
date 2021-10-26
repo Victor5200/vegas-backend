@@ -4,22 +4,26 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 
 @Entity
+@Table(name = "TB_MembroCandidato")
 public class Membro_CanditatoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long id;
+
+    @Column(nullable = false, length = 50)
     public String nome;
+
+    @Column(nullable = false, length = 50)
     public String relevancia;
+
+    @Column(nullable = false, length = 50)
     public boolean inadimplente;
 }

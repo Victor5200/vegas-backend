@@ -1,8 +1,6 @@
 package com.barvegas.backend.Model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,15 +8,14 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
+@Table(name = "TB_USUARIO")
 public class UsuarioModel implements UserDetails {
 
     @Id
     @Column(nullable = false,length = 50)
     private String login;
-    @Column(nullable = false, length = 50)
+    @Column(nullable = true, length = 50)
     private String nomeCompleto;
     @Column(nullable = false, length = 100)
     private String senha;
