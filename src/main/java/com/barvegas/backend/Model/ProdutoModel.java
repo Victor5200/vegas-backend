@@ -22,6 +22,6 @@ public class ProdutoModel {
     private Float valorVenda;
 
     private Float precoCusto;
-    
+
     private String fornecedor;
 }
