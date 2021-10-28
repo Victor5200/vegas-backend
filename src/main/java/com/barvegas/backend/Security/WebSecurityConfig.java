@@ -47,5 +47,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/swagger-ui.html",
                 "/webjars/");//Não bloqueie as páginas estáticas
     }
-
+MEU PAU 
 }
