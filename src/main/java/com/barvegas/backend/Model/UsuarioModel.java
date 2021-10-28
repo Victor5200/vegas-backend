@@ -3,10 +3,9 @@ package com.barvegas.backend.Model;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.List;
+
 
 @Data
 @Entity
@@ -19,13 +18,13 @@ public class UsuarioModel implements UserDetails {
     @Column(nullable = false, length = 100)
     private String senha;
 
-    @ManyToMany
-    @JoinTable(name = "usuario_roles", joinColumns = @JoinColumn(
-            name = "usuario_id",referencedColumnName = "login"),
-            inverseJoinColumns = @JoinColumn(name = "role_id",
-                    referencedColumnName = "nomeRole"
-    ))
-    private List<Role> roles;
+//    @ManyToMany
+//    @JoinTable(name = "usuario_roles", joinColumns = @JoinColumn(
+//            name = "usuario_id",referencedColumnName = "login"),
+//            inverseJoinColumns = @JoinColumn(name = "role_id",
+//                    referencedColumnName = "nomeRole"
+//    ))
+    //private List<Role> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

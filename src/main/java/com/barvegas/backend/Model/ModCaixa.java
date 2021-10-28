@@ -3,16 +3,13 @@ package com.barvegas.backend.Model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "TB_CAIXA")
 public class ModCaixa  {
 
     @Id
@@ -20,6 +17,5 @@ public class ModCaixa  {
     private Long idCaixa;
     private String data;
     private Double totalCaixa;
-
 
 }

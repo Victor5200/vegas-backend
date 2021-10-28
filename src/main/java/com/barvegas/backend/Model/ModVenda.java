@@ -3,7 +3,6 @@ package com.barvegas.backend.Model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 
 
@@ -11,6 +10,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "TB_VENDA")
 public class ModVenda {
 
     @Id
@@ -23,7 +23,5 @@ public class ModVenda {
     private Double valorTotal;
     private String descricao;
     private Boolean pago;
-
-
 
 }

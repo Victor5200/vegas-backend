@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/api")
-@Api(value = "API REST Produtos")
+@Api(value = "API REST MEMBRO_CANDIDATO")
 @CrossOrigin(origins = "*")
 public class Membro_CandidatoController {
 
@@ -22,8 +22,5 @@ public class Membro_CandidatoController {
         return membroCandidatoService.saveMembCandi(newMemCan);
     }
 
-    @GetMapping(path = "/membro")
-    public String teste(){
-        return "CARALHOOOOOOOOOO";
-    }
+
 }

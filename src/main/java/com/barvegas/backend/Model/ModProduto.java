@@ -4,15 +4,14 @@ package com.barvegas.backend.Model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import javax.persistence.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "TB_PRODUTO")
 public class ModProduto {
 
     @Id
@@ -23,7 +22,5 @@ public class ModProduto {
     private Double valorCusto;
     private String fornecedor;
     private Long quantidade;
-
-
 
 }
