@@ -18,4 +18,5 @@ public class ModCaixa  {
     private String data;
     private Double totalCaixa;
 
+
 }

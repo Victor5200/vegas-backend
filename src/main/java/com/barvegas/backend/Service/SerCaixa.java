@@ -5,6 +5,7 @@ import com.barvegas.backend.Repository.RepCaixa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import javax.el.MethodNotFoundException;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,5 +40,13 @@ public class SerCaixa {
     public void delByIdCaixa(Long id){
         repCaixa.deleteById(id);
     }
+
+    public void criarCaixa(){
+        String formatterData = String.valueOf(DateTimeFormatter.ofPattern("dd/MM/uuuu"));
+        String data = formatterData;
+
+        if(repCaixa.exists(g))
+    }
+
 
 }

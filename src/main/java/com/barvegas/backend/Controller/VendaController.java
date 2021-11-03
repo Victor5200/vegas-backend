@@ -30,7 +30,7 @@ public class VendaController {
 
     @PutMapping("/{idVenda}")
     @ApiOperation(value = "Adicona 1 item a uma venda")
-    public ResponseEntity<ModVenda> addItens (Long idVenda, Long idItem, Long qtd)
+    public ResponseEntity<ModVenda> addItens (@PathVariable Long idVenda, Long idItem, Long qtd)
             throws Exception{
             return ResponseEntity.ok(serVenda.addItens(idVenda,idItem,qtd));
     }
