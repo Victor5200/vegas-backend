@@ -46,7 +46,7 @@ public class VendaController {
     @DeleteMapping("/{idVenda}")
     @ApiOperation(value = "Deleta venda por ID.")
     public void delVendaById(@PathVariable Long idVenda, Long idProduto, Long idCaixa){
-        serVenda.delVendaById(idVenda,idProduto,idCaixa);
+        serVenda.delVendaById(idVenda,idCaixa);
     }
 
     @PostMapping("/{idVenda}")
