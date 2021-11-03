@@ -20,7 +20,7 @@ public class ModVenda {
     private Long idVenda;
     private String data;
     @OneToMany
-    private ArrayList<ModItems> itens;
+    private List<ModItems> itens;
     private Double valorTotal;
     private String descricao;
     private Boolean pago;

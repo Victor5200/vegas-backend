@@ -28,7 +28,7 @@ public class VendaController {
         return ResponseEntity.ok(serVenda.saveVenda(newVenda));
     }
 
-    @PostMapping
+    @PutMapping("/{idVenda}")
     @ApiOperation(value = "Adicona 1 item a uma venda")
     public ResponseEntity<ModVenda> addItens (Long idVenda, Long idItem, Long qtd)
             throws Exception{

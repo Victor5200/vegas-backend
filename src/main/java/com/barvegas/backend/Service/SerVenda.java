@@ -63,7 +63,7 @@ public class SerVenda {
             throw new MethodNotFoundException("Item não encontrado...");
         }
 
-        ArrayList<ModItems> itemsList = optionalModVenda.get().getItens();
+        List<ModItems> itemsList = optionalModVenda.get().getItens();
         ModItems item = optionalModItems.get();
         item.setQtd(qtd);
 
@@ -75,7 +75,7 @@ public class SerVenda {
             throw new Exception("Não foi possivel adicionar...");
         }
         dimEstoque(idVenda);//Diminui o estoque
-        aumCaixa();//Aumenta o Caixa Total
+        //aumCaixa();//Aumenta o Caixa Total
 
         return repVenda.save(optionalModVenda.get());
     }
@@ -89,7 +89,7 @@ public class SerVenda {
         //Aumentar estoque
         aumEstoque(idProduto_Venda);
         //Diminuir Caixa
-        dimCaixa (idProduto_Venda);
+        //dimCaixa (idProduto_Venda);
 
         repVenda.deleteById(idVenda);
     }
