@@ -59,10 +59,12 @@ public class SerVenda {
     }
 
     //Deletar Venda por ID
-    public void delVendaById(Long idVenda, Long idProduto, Long idCaixa) {
+    public void delVendaById(Long idVenda, Long idCaixa) {
 
         Optional<ModVenda> oldVenda = repVenda.findById(idVenda);
         Long qtdComprada = oldVenda.get().getQtd();
+        ModProduto produto = oldVenda.get().getProdutos();
+        Long idProduto = produto.getIdProduto();
 
         aumEstoque( idProduto, qtdComprada);
 
