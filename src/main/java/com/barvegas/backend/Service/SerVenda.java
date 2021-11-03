@@ -1,21 +1,23 @@
 package com.barvegas.backend.Service;
 
 import com.barvegas.backend.Model.ModCaixa;
+import com.barvegas.backend.Model.ModItems;
 import com.barvegas.backend.Model.ModProduto;
 import com.barvegas.backend.Model.ModVenda;
 import com.barvegas.backend.Repository.RepCaixa;
+import com.barvegas.backend.Repository.RepItens;
 import com.barvegas.backend.Repository.RepProduto;
 import com.barvegas.backend.Repository.RepVenda;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.el.MethodNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Component
 public class SerVenda {
-
 
     @Autowired
     RepVenda repVenda;
@@ -23,6 +25,9 @@ public class SerVenda {
     RepProduto repProduto;
     @Autowired
     RepCaixa repCaixa;
+    @Autowired
+    RepItens repItens;
+
     @Autowired
     SerCaixa serCaixa;
     @Autowired
@@ -34,8 +39,8 @@ public class SerVenda {
     }
 
     //Buscar por id
-    public ModVenda getByIDVenda(Long id) {
-        Optional<ModVenda> optionalModVenda = repVenda.findById(id);
+    public ModVenda getByIDVenda(Long idVenda) {
+        Optional<ModVenda> optionalModVenda = repVenda.findById(idVenda);
         if (!optionalModVenda.isPresent()) {
             throw new MethodNotFoundException("Venda não encontrada...");
         }
@@ -43,50 +48,69 @@ public class SerVenda {
     }
 
     //Salvar novo Venda
-    public ModVenda saveVenda(ModVenda newVenda, Long idProduto, Long idCaixa) {
-
-        Long qtdComprada = newVenda.getQtd();
-
-        //Diminui a quantidade de estoque
-        dimEstoque(idProduto, qtdComprada);
-
-        Long idVenda = newVenda.getIdVenda();
-
-        //Aumentar caixa
-        aumCaixa(idVenda, idCaixa);
-
+    public ModVenda saveVenda(ModVenda newVenda) {
         return repVenda.save(newVenda);
+    }
+
+    //Adicionar itens a Venda por id
+    public ModVenda addItens(Long idVenda, Long idItem, Long qtd) throws Exception {
+        Optional<ModVenda> optionalModVenda = repVenda.findById(idVenda);
+        if (!optionalModVenda.isPresent()) {
+            throw new MethodNotFoundException("Venda não encontrada...");
+        }
+        Optional<ModItems> optionalModItems = repItens.findById(idItem);
+        if (!optionalModItems.isPresent()) {
+            throw new MethodNotFoundException("Item não encontrado...");
+        }
+
+        ArrayList<ModItems> itemsList = optionalModVenda.get().getItens();
+        ModItems item = optionalModItems.get();
+        item.setQtd(qtd);
+
+        if (item.getTamanho() < itemsList.size()) {
+            int i = item.getTamanho();
+            itemsList.set(item.getTamanho(), item);
+            item.setTamanho(i++);
+        } else {
+            throw new Exception("Não foi possivel adicionar...");
+        }
+        dimEstoque(idVenda);//Diminui o estoque
+        aumCaixa();//Aumenta o Caixa Total
+
+        return repVenda.save(optionalModVenda.get());
     }
 
     //Deletar Venda por ID
     public void delVendaById(Long idVenda, Long idCaixa) {
 
         Optional<ModVenda> oldVenda = repVenda.findById(idVenda);
-        Long qtdComprada = oldVenda.get().getQtd();
-        ModProduto produto = oldVenda.get().getProdutos();
-        Long idProduto = produto.getIdProduto();
+        Long idProduto_Venda = idVenda;
 
-        aumEstoque( idProduto, qtdComprada);
-
+        //Aumentar estoque
+        aumEstoque(idProduto_Venda);
         //Diminuir Caixa
-        dimCaixa( idVenda, idCaixa);
+        dimCaixa (idProduto_Venda);
 
         repVenda.deleteById(idVenda);
     }
 
     //Venda paga
-    public ModVenda pagVendaById(Long idVenda) {
+    public ModVenda pagVendaById (Long idVenda){
 
         ModVenda vendaPaga = getByIDVenda(idVenda);
         vendaPaga.setPago(true);
         return vendaPaga;
-    }
+        }
+
 
     //Diminuir estoque
-    public void dimEstoque(Long idProduto, Long qtdComprada) {
+    public void dimEstoque(Long idItem_Venda) {
 
-        ModProduto produto = serProduto.getByIDProdutos(idProduto);
+        ModProduto produto = serProduto.getByIDProdutos(idItem_Venda);
         Long qtd = produto.getQuantidade();
+
+        ModItems item = serProduto.getByIdItem(idItem_Venda);
+        Long qtdComprada = item.getQtd();
 
         if (qtd >= qtdComprada) {
             produto.setQuantidade(qtd - qtdComprada);
@@ -98,54 +122,61 @@ public class SerVenda {
     }
 
     //Aumentar estoque
-    public void aumEstoque(Long idProduto, Long qtdComprada) {
+        public void aumEstoque (Long idItem_Venda){
 
-        ModProduto produto = serProduto.getByIDProdutos(idProduto);
-        Long qtd = produto.getQuantidade();
+            ModProduto produto = serProduto.getByIDProdutos(idItem_Venda);
+            Long qtd = produto.getQuantidade();
 
-        produto.setQuantidade(qtd + qtdComprada);
+            ModItems item = serProduto.getByIdItem(idItem_Venda);
+            Long qtdComprada = item.getQtd();
 
-        repProduto.save(produto);
-    }
+            produto.setQuantidade(qtd + qtdComprada);
 
-    //Aumentar Caixa
-    public void aumCaixa(Long idVenda, Long idCaixa) {
-
-        ModCaixa caixa = serCaixa.getByIDCaixa(idCaixa);
-        String dataCaixa = caixa.getData();
-
-        ModVenda oldVenda = getByIDVenda(idVenda);
-        String dataVenda = oldVenda.getData();
-
-        if (dataVenda.equals(dataCaixa)) {
-            Double totalCaixa = caixa.getTotalCaixa();
-            totalCaixa += oldVenda.getValorTotal();
-            caixa.setTotalCaixa(totalCaixa);
-        } else {
-            throw new MethodNotFoundException("Datas incompativeis");
+            repProduto.save(produto);
         }
-        repCaixa.save(caixa);
-    }
 
-    //Diminuir Caixa
-    public void dimCaixa(Long idVenda, Long idCaixa) {
 
-        ModCaixa caixa = serCaixa.getByIDCaixa(idCaixa);
-        String dataCaixa = caixa.getData();
 
-        //Venda q vai ser deletada
-        ModVenda oldVenda = getByIDVenda(idVenda);
-        String dataVenda = oldVenda.getData();
 
-        if (dataVenda.equals(dataCaixa)) {
-            Double totalCaixa = caixa.getTotalCaixa();
-            totalCaixa -= oldVenda.getValorTotal();
-            caixa.setTotalCaixa(totalCaixa);
-        } else {
-            throw new MethodNotFoundException("Datas incompativeis");
+
+        //Aumentar Caixa
+        public void aumCaixa (Long idVenda, Long idCaixa){
+
+            ModCaixa caixa = serCaixa.getByIDCaixa(idCaixa);
+            String dataCaixa = caixa.getData();
+
+            ModVenda oldVenda = getByIDVenda(idVenda);
+            String dataVenda = oldVenda.getData();
+
+            if (dataVenda.equals(dataCaixa)) {
+                Double totalCaixa = caixa.getTotalCaixa();
+                totalCaixa += oldVenda.getValorTotal();
+                caixa.setTotalCaixa(totalCaixa);
+            } else {
+                throw new MethodNotFoundException("Datas incompativeis");
+            }
+            repCaixa.save(caixa);
         }
-        repCaixa.save(caixa);
+
+        //Diminuir Caixa
+        public void dimCaixa (Long idVenda, Long idCaixa){
+
+            ModCaixa caixa = serCaixa.getByIDCaixa(idCaixa);
+            String dataCaixa = caixa.getData();
+
+            //Venda q vai ser deletada
+            ModVenda oldVenda = getByIDVenda(idVenda);
+            String dataVenda = oldVenda.getData();
+
+            if (dataVenda.equals(dataCaixa)) {
+                Double totalCaixa = caixa.getTotalCaixa();
+                totalCaixa -= oldVenda.getValorTotal();
+                caixa.setTotalCaixa(totalCaixa);
+            } else {
+                throw new MethodNotFoundException("Datas incompativeis");
+            }
+            repCaixa.save(caixa);
 
 
-    }
+        }
 }

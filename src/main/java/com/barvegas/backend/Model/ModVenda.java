@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Data
@@ -17,11 +19,11 @@ public class ModVenda {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idVenda;
     private String data;
-    @ManyToOne
-    private ModProduto produtos;
-    private Long qtd;
+    @OneToMany
+    private ArrayList<ModItems> itens;
     private Double valorTotal;
     private String descricao;
     private Boolean pago;
+
 
 }

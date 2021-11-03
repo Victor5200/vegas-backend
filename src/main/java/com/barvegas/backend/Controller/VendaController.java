@@ -24,11 +24,15 @@ public class VendaController {
 
     @PostMapping
     @ApiOperation(value = "Salva nova venda")
-    public ResponseEntity<ModVenda> saveVenda(@RequestBody ModVenda newVenda,
-                                              Long idProduto,
-                                              Long idCaixa){
+    public ResponseEntity<ModVenda> saveVenda(@RequestBody ModVenda newVenda){
+        return ResponseEntity.ok(serVenda.saveVenda(newVenda));
+    }
 
-        return ResponseEntity.ok(serVenda.saveVenda(newVenda,idProduto,idCaixa));
+    @PostMapping
+    @ApiOperation(value = "Adicona 1 item a uma venda")
+    public ResponseEntity<ModVenda> addItens (Long idVenda, Long idItem, Long qtd)
+            throws Exception{
+            return ResponseEntity.ok(serVenda.addItens(idVenda,idItem,qtd));
     }
 
     @GetMapping
