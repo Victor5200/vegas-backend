@@ -41,12 +41,5 @@ public class SerCaixa {
         repCaixa.deleteById(id);
     }
 
-    public void criarCaixa(){
-        String formatterData = String.valueOf(DateTimeFormatter.ofPattern("dd/MM/uuuu"));
-        String data = formatterData;
-
-        if(repCaixa.exists(g))
-    }
-
-
+    
 }

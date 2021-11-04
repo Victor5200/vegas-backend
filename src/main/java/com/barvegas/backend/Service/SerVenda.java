@@ -9,6 +9,7 @@ import com.barvegas.backend.Repository.RepItens;
 import com.barvegas.backend.Repository.RepProduto;
 import com.barvegas.backend.Repository.RepVenda;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 
 import javax.el.MethodNotFoundException;
