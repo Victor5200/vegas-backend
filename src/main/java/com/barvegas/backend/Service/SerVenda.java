@@ -96,17 +96,13 @@ public class SerVenda {
         //Aumentar estoque
         aumEstoque(idItem_Produto);
         //Diminuir Caixa
-        dimCaixa (idItem_Produto);
+        //dimCaixa (idItem_Produto);
 
         repVenda.deleteById(idVenda);
     }
 
     //Venda paga
     public ModVenda pagVendaById (Long idVenda){
-
-        ModCaixa caixa = new ModCaixa();
-        caixa.setTotalCaixa();
-
 
         ModVenda vendaPaga = getByIDVenda(idVenda);
         vendaPaga.setPago(true);
@@ -147,43 +143,41 @@ public class SerVenda {
         }
 
 
-    //Aumentar Caixa
-    public void aumCaixa (Long idVenda){
-
-        ModVenda venda = getByIDVenda(idVenda);
-        String dataVenda = venda.getData();
-
-
-
-        if (dataVenda.equals(dataCaixa)) {
-            Double totalCaixa = caixa.getTotalCaixa();
-            totalCaixa += oldVenda.getValorTotal();
-            caixa.setTotalCaixa(totalCaixa);
-        } else {
-            throw new MethodNotFoundException("Datas incompativeis");
-        }
-        repCaixa.save(caixa);
-    }
-
-        //Diminuir Caixa
-        public void dimCaixa (Long idProduto_Venda){
-
-            ModCaixa caixa = serCaixa.getByIDCaixa(idCaixa);
-            String dataCaixa = caixa.getData();
-
-            //Venda q vai ser deletada
-            ModVenda oldVenda = getByIDVenda(idVenda);
-            String dataVenda = oldVenda.getData();
-
-            if (dataVenda.equals(dataCaixa)) {
-                Double totalCaixa = caixa.getTotalCaixa();
-                totalCaixa -= oldVenda.getValorTotal();
-                caixa.setTotalCaixa(totalCaixa);
-            } else {
-                throw new MethodNotFoundException("Datas incompativeis");
-            }
-            repCaixa.save(caixa);
-
-
-        }
+//    //Aumentar Caixa
+//    public void aumCaixa (Long idVenda){
+//
+//        ModVenda venda = getByIDVenda(idVenda);
+//        String dataVenda = venda.getData();
+//
+//        if (dataVenda.equals(dataCaixa)) {
+//            Double totalCaixa = caixa.getTotalCaixa();
+//            totalCaixa += oldVenda.getValorTotal();
+//            caixa.setTotalCaixa(totalCaixa);
+//        } else {
+//            throw new MethodNotFoundException("Datas incompativeis");
+//        }
+//        repCaixa.save(caixa);
+//    }
+//
+//        //Diminuir Caixa
+//        public void dimCaixa (Long idProduto_Venda){
+//
+//            ModCaixa caixa = serCaixa.getByIDCaixa(idCaixa);
+//            String dataCaixa = caixa.getData();
+//
+//            //Venda q vai ser deletada
+//            ModVenda oldVenda = getByIDVenda(idVenda);
+//            String dataVenda = oldVenda.getData();
+//
+//            if (dataVenda.equals(dataCaixa)) {
+//                Double totalCaixa = caixa.getTotalCaixa();
+//                totalCaixa -= oldVenda.getValorTotal();
+//                caixa.setTotalCaixa(totalCaixa);
+//            } else {
+//                throw new MethodNotFoundException("Datas incompativeis");
+//            }
+//            repCaixa.save(caixa);
+//
+//
+//        }
 }
