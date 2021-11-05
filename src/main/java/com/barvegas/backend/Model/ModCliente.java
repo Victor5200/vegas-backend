@@ -10,15 +10,21 @@ import javax.persistence.*;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "TB_MembroCandidato")
-public class Membro_CanditatoModel {
+@Table(name = "TB_CLIENTE")
+public class ModCliente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     public Long id;
 
     @Column(nullable = false, length = 50)
     public String nome;
+
+    @Column(nullable = false, length = 50)
+    public String cpf;
+
+    @Column(nullable = false, length = 20)
+    public String telefone;
 
     @Column(nullable = false, length = 50)
     public String relevancia;
