@@ -50,10 +50,6 @@ public class SerVenda {
 
     //Salvar novo Venda
     public ModVenda saveVenda(ModVenda newVenda) {
-        getByIDVenda(newVenda.getIdVenda());
-        String formatterData = String.valueOf(DateTimeFormatter.ofPattern("dd/MM/uuuu"));
-        newVenda.setData(formatterData);
-
         return repVenda.save(newVenda);
     }
 
@@ -67,7 +63,7 @@ public class SerVenda {
         if (!optionalModItems.isPresent()) {
             throw new MethodNotFoundException("Item não encontrado...");
         }
-
+/*
         List<ModItems> itemsList = optionalModVenda.get().getItens();
         ModItems item = optionalModItems.get();
         item.setQtd(qtd);
@@ -83,7 +79,7 @@ public class SerVenda {
 
         optionalModVenda.get().setValorTotal
                 ((optionalModVenda.get().getValorTotal())+(item.getQtd()*item.getValorVenda()));
-
+*/
         return repVenda.save(optionalModVenda.get());
     }
 

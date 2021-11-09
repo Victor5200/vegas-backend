@@ -36,13 +36,16 @@ public class SerProduto {
     //Salvar novo Produto
     public ModProduto saveProduto(ModProduto newProduto){
 
+        /*
+        o codigo a baixo a principio e desncessario by:Victor
+
         ModItems items = new ModItems();
 
         //Salvando uma cópia pra ser usada nas comandas sem que interfira no estoque
         items.setId(newProduto.getIdProduto());
         items.setNome(newProduto.getNome());
         items.setValorVenda(newProduto.getValorVenda());
-        repItens.save(items);
+        repItens.save(items);*/
 
         return repProduto.save(newProduto);
     }

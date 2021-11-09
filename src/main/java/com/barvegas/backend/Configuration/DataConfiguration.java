@@ -18,8 +18,8 @@ public class DataConfiguration {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/barapp?useTimezone=true&serverTimezone=UTC");//Porta e nome do banco
-        dataSource.setUsername("root");//Login root MySQL
-        dataSource.setPassword("admin");
+        dataSource.setUsername("Kleveson");//Login root MySQL
+        dataSource.setPassword("6806952763");
         return dataSource;
     }
 
