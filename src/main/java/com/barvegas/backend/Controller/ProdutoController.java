@@ -38,7 +38,7 @@ public class ProdutoController {
         return ResponseEntity.ok(serProduto.getByIDProdutos(idProduto));
     }
 
-    @DeleteMapping("/{idProdutos}")
+    @DeleteMapping("/{idProduto}")
     @ApiOperation(value = "Deleta produto por id.")
     public void  delByIdProduto(@PathVariable Long idProduto){
         serProduto.delByIdProduto(idProduto);

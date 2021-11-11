@@ -52,9 +52,8 @@ public class SerProduto {
 
     //Deletar produto por ID
     public void delByIdProduto(Long idProduto){
-
         //Quando o estoque do produto for deletado o item relacionado vai ser deletado junto
-        repItens.deleteById(idProduto);
+        //repItens.deleteById(idProduto);
 
         repProduto.deleteById(idProduto);
     }

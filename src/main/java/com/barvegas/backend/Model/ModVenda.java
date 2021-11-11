@@ -22,13 +22,19 @@ public class ModVenda {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idVenda;
+
     @CreationTimestamp
     private LocalDateTime data;
+
     @OneToMany
-    private List<ModProduto> itens;
+    private List<ModItems> itens;
+
     private Double valorTotal;
+
     private String descricao;
+
     private Boolean pago;
+
     @ManyToOne
     private ModCliente membro;
 

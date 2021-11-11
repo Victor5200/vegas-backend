@@ -16,9 +16,12 @@ public class ModItems {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    private String nome;
-    private Double valorVenda;
-    private Long qtd;
-    private int tamanho;
+
+    @ManyToOne
+    private ModProduto produto;
+
+    private Double valor;
+
+    private Long quantidade;
 
 }

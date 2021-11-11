@@ -29,15 +29,6 @@ public class VendaController {
         return ResponseEntity.ok(serVenda.saveVenda(newVenda));
     }
 
-    @PutMapping("/{idVenda}")
-    @ApiOperation(value = "Adicona 1 item a uma venda")
-    public ResponseEntity<ModVenda> addItens (@PathVariable(value = "idVenda")Long idVenda,
-                                              Long idItem,
-                                              Long qtd)
-            throws Exception{
-            return ResponseEntity.ok(serVenda.addItens(idVenda,idItem,qtd));
-    }
-
     @GetMapping
     @ApiOperation(value = "Recupera lista de vendas.")
     public ResponseEntity<List<ModVenda>> getAllVenda(){
@@ -52,13 +43,7 @@ public class VendaController {
 
     @DeleteMapping("/{idVenda}")
     @ApiOperation(value = "Deleta venda por ID.")
-    public void delVendaById(@PathVariable Long idVenda, Long idProduto, Long idCaixa){
-        serVenda.delVendaById(idVenda,idCaixa);
-    }
-
-    @PostMapping("/{idVenda}")
-    @ApiOperation(value = "Informa que a venda solicitada por ID está paga.")
-    public ResponseEntity<ModVenda> pagVendaById(Long idVenda){
-        return ResponseEntity.ok(serVenda.pagVendaById(idVenda));
+    public void delVendaById(@PathVariable Long idVenda){
+        serVenda.delVendaById(idVenda);
     }
 }
