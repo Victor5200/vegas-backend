@@ -24,7 +24,7 @@ public class ModVenda {
     @CreationTimestamp
     private LocalDate data;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<ModItems> itens;
 
     private Double valorTotal;
