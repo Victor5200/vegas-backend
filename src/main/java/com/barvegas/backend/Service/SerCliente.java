@@ -4,9 +4,6 @@ import com.barvegas.backend.Model.ModCliente;
 import com.barvegas.backend.Repository.RepCliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import javax.el.MethodNotFoundException;
 import java.util.List;
 import java.util.Optional;

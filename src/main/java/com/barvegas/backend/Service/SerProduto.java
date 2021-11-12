@@ -4,10 +4,8 @@ import com.barvegas.backend.Model.ModItems;
 import com.barvegas.backend.Model.ModProduto;
 import com.barvegas.backend.Repository.RepItens;
 import com.barvegas.backend.Repository.RepProduto;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import javax.el.MethodNotFoundException;
 import java.util.List;
 import java.util.Optional;

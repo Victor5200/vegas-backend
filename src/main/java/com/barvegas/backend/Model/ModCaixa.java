@@ -15,7 +15,9 @@ public class ModCaixa  {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idCaixa;
+
     private String data;
+
     private Double totalCaixa;
 
 

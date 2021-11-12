@@ -17,10 +17,15 @@ public class ModProduto {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long idProduto;
+
     private String nome;
+
     private Double valorVenda;
+
     private Double valorCusto;
+
     private String fornecedor;
+
     private Long quantidade;
 
 }
