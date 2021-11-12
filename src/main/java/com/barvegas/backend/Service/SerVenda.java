@@ -1,20 +1,15 @@
 package com.barvegas.backend.Service;
 
-import com.barvegas.backend.Model.ModCaixa;
-import com.barvegas.backend.Model.ModItems;
-import com.barvegas.backend.Model.ModProduto;
-import com.barvegas.backend.Model.ModVenda;
+import com.barvegas.backend.Model.*;
 import com.barvegas.backend.Repository.RepCaixa;
 import com.barvegas.backend.Repository.RepItens;
 import com.barvegas.backend.Repository.RepProduto;
 import com.barvegas.backend.Repository.RepVenda;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 
 import javax.el.MethodNotFoundException;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -91,42 +86,13 @@ public class SerVenda {
         });
     }
 
+    //Buscar por ID membro
+    public ModVenda findVendaByIdCliente(Long id){
+        return repVenda.findModVendaByCliente_Id(id,LocalDate.now());
+    }
 
-//    //Aumentar Caixa
-//    public void aumCaixa (Long idVenda){
-//
-//        ModVenda venda = getByIDVenda(idVenda);
-//        String dataVenda = venda.getData();
-//
-//        if (dataVenda.equals(dataCaixa)) {
-//            Double totalCaixa = caixa.getTotalCaixa();
-//            totalCaixa += oldVenda.getValorTotal();
-//            caixa.setTotalCaixa(totalCaixa);
-//        } else {
-//            throw new MethodNotFoundException("Datas incompativeis");
-//        }
-//        repCaixa.save(caixa);
-//    }
-//
-//        //Diminuir Caixa
-//        public void dimCaixa (Long idProduto_Venda){
-//
-//            ModCaixa caixa = serCaixa.getByIDCaixa(idCaixa);
-//            String dataCaixa = caixa.getData();
-//
-//            //Venda q vai ser deletada
-//            ModVenda oldVenda = getByIDVenda(idVenda);
-//            String dataVenda = oldVenda.getData();
-//
-//            if (dataVenda.equals(dataCaixa)) {
-//                Double totalCaixa = caixa.getTotalCaixa();
-//                totalCaixa -= oldVenda.getValorTotal();
-//                caixa.setTotalCaixa(totalCaixa);
-//            } else {
-//                throw new MethodNotFoundException("Datas incompativeis");
-//            }
-//            repCaixa.save(caixa);
-//
-//
-//        }
+    //Buscar Lista
+    public List<ModVenda> findListVendaDateNow(){
+        return repVenda.retornaTodasAsComandasDoDia(LocalDate.now());
+    }
 }

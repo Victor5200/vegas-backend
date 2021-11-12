@@ -46,4 +46,16 @@ public class VendaController {
     public void delVendaById(@PathVariable Long idVenda){
         serVenda.delVendaById(idVenda);
     }
+
+    @GetMapping(value = "/membro/{idCliente}")
+    @ApiOperation(value = "Buscar venda de membro por id do Cliente.")
+    public ResponseEntity<ModVenda> findVendaByIdCliente(@PathVariable("idCliente")Long id) {
+        return ResponseEntity.ok(serVenda.findVendaByIdCliente(id));
+    }
+
+    @GetMapping(value = "/daylist")
+    @ApiOperation(value = "Buscar lista de vendas to dia atual.")
+    public ResponseEntity<List<ModVenda>> findListVendaDateNow(){
+        return ResponseEntity.ok(serVenda.findListVendaDateNow());
+    }
 }

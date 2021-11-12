@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping(path = "/api/membro")
 @Api(value = "API REST MEMBRO_CANDIDATO")
 @CrossOrigin(origins = "*")
-public class Membro_CandidatoController {
+public class ClienteController {
 
     @Autowired
     SerCliente serCliente;
@@ -54,4 +54,7 @@ public class Membro_CandidatoController {
     public void deleteClienteById(@PathVariable Long id){
         serCliente.deleteClienteById(id);
     }
-}
+
+    }
+
+

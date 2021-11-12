@@ -7,8 +7,6 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -24,7 +22,7 @@ public class ModVenda {
     private Long idVenda;
 
     @CreationTimestamp
-    private LocalDateTime data;
+    private LocalDate data;
 
     @OneToMany
     private List<ModItems> itens;
@@ -36,7 +34,7 @@ public class ModVenda {
     private Boolean pago;
 
     @ManyToOne
-    private ModCliente membro;
+    private ModCliente cliente;
 
 
 }

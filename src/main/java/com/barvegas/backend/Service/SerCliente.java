@@ -50,4 +50,7 @@ public class SerCliente {
     public void deleteClienteById(Long id){
         repCliente.deleteById(id);
     }
+
+
+
 }
