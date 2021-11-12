@@ -86,11 +86,11 @@ public class SerVenda {
 
     //Buscar por ID membro
     public ModVenda findVendaByIdCliente(Long id){
-        return repVenda.findModVendaByCliente_Id(id,LocalDate.now());
+        return repVenda.findModVendaByCliente_Id(id);
     }
 
     //Buscar Lista
     public List<ModVenda> findListVendaDateNow(){
-        return repVenda.retornaTodasAsComandasDoDia(LocalDate.now());
+        return repVenda.retornaTodasAsComandasDoDia();
     }
 }

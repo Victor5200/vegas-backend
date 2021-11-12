@@ -9,10 +9,10 @@ import java.util.List;
 
 public interface RepVenda extends JpaRepository<ModVenda,Long>{
 
-    @Query("SELECT v FROM ModVenda v WHERE v.cliente.id = ?1 AND v.data = ?2")
-    ModVenda findModVendaByCliente_Id(Long id, LocalDate data);
+    @Query("SELECT v FROM ModVenda v WHERE v.membro.id = ?1 AND v.pago is null")
+    ModVenda findModVendaByCliente_Id(Long id );
 
-    @Query("SELECT v FROM ModVenda v WHERE v.cliente is null AND v.data = ?1")
-    List<ModVenda> retornaTodasAsComandasDoDia(LocalDate data);
+    @Query("SELECT v FROM ModVenda v WHERE v.membro is null AND v.pago is null")
+    List<ModVenda> retornaTodasAsComandasDoDia();
 }
 

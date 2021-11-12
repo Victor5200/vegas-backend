@@ -33,7 +33,7 @@ public class ModVenda {
     private Boolean pago;
 
     @ManyToOne
-    private ModCliente cliente;
+    private ModCliente membro;
 
 
 }
