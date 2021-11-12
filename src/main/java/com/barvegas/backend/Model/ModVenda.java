@@ -4,7 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -26,7 +29,8 @@ public class ModVenda {
     @OneToMany(cascade = CascadeType.ALL)
     private List<ModItems> itens;
 
-    private Double valorTotal;
+    @Column(precision = 5, scale = 2)
+    private BigDecimal valorTotal;
 
     private String descricao;
 
