@@ -1,5 +1,6 @@
 package com.barvegas.backend.Model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,7 @@ public class ModItems {
     private ModProduto produto;
 
     @Column(precision = 5, scale = 2)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private BigDecimal valor;
 
     private Long quantidade;

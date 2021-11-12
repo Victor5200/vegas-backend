@@ -1,6 +1,7 @@
 package com.barvegas.backend.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,9 +25,11 @@ public class ModProduto {
     private String nome;
 
     @Column(precision = 5, scale = 2)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private BigDecimal valorVenda;
 
     @Column(precision = 5, scale = 2)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private BigDecimal valorCusto;
 
     private String fornecedor;
