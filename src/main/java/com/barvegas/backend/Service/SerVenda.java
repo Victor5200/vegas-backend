@@ -8,7 +8,6 @@ import com.barvegas.backend.Repository.RepVenda;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import javax.el.MethodNotFoundException;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import static java.util.Objects.isNull;
@@ -50,7 +49,7 @@ public class SerVenda {
 
     //Salvar novo Venda
     public ModVenda saveVenda(ModVenda newVenda) throws Exception {
-        if (isNull(newVenda.getIdVenda())) {
+        if (isNull(newVenda.getId())) {
             dimEstoqueList(newVenda.getItens());
         }
 
@@ -67,7 +66,7 @@ public class SerVenda {
     //Diminuir estoque
     public void dimEstoqueList(List<ModItems> idItem_Venda) throws Exception {
         for (ModItems item : idItem_Venda) {
-            ModProduto produto = serProduto.getByIDProdutos(item.getProduto().getIdProduto());
+            ModProduto produto = serProduto.getByIDProdutos(item.getProduto().getId());
             Long qtd = produto.getQuantidade();
 
             if (item.getQuantidade() > qtd) {
@@ -82,7 +81,7 @@ public class SerVenda {
     //Aumentar estoque
     public void aumEstoque (List<ModItems> idItem_Venda) {
         for (ModItems item : idItem_Venda) {
-            ModProduto produto = serProduto.getByIDProdutos(item.getProduto().getIdProduto());
+            ModProduto produto = serProduto.getByIDProdutos(item.getProduto().getId());
             Long qtd = produto.getQuantidade();
             produto.setQuantidade(qtd + item.getQuantidade());
             repProduto.save(produto);

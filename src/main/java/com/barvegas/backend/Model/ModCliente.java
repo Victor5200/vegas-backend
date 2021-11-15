@@ -14,7 +14,8 @@ import javax.persistence.*;
 public class ModCliente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_clente")
+    @SequenceGenerator(name = "seq_cliente", sequenceName = "seq_cliente")
     public Long id;
 
     @Column(nullable = false, length = 50)

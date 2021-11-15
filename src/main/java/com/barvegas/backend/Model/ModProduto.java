@@ -19,8 +19,9 @@ import java.math.BigDecimal;
 public class ModProduto {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long idProduto;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_produto")
+    @SequenceGenerator(name = "seq_produto", sequenceName = "seq_produto")
+    private Long id;
 
     private String nome;
 

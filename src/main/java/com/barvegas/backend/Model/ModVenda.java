@@ -21,8 +21,9 @@ import java.util.List;
 public class ModVenda {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idVenda;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_venda")
+    @SequenceGenerator(name = "seq_venda", sequenceName = "seq_venda")
+    private Long id;
 
     @CreationTimestamp
     private LocalDate data;

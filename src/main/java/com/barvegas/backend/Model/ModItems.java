@@ -17,7 +17,8 @@ import java.math.BigDecimal;
 public class ModItems {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_items")
+    @SequenceGenerator(name = "seq_items", sequenceName = "seq_items")
     private Long id;
 
     @ManyToOne
