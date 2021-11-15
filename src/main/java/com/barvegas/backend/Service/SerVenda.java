@@ -69,7 +69,7 @@ public class SerVenda {
         idItem_Venda.forEach(item -> {
             ModProduto produto = serProduto.getByIDProdutos(item.getProduto().getIdProduto());
             Long qtd = produto.getQuantidade();
-            produto.setQuantidade(qtd - item.getProduto().getQuantidade());
+            produto.setQuantidade(qtd - item.getQuantidade());
             repProduto.save(produto);
         });
     }
@@ -79,7 +79,7 @@ public class SerVenda {
         idItem_Venda.forEach(item -> {
             ModProduto produto = serProduto.getByIDProdutos(item.getProduto().getIdProduto());
             Long qtd = produto.getQuantidade();
-            produto.setQuantidade(qtd + item.getProduto().getQuantidade());
+            produto.setQuantidade(qtd + item.getQuantidade());
             repProduto.save(produto);
         });
     }
