@@ -23,7 +23,7 @@ public class VendaController {
 
     @PostMapping
     @ApiOperation(value = "Salva nova venda")
-    public ResponseEntity<ModVenda> saveVenda(@RequestBody ModVenda newVenda){
+    public ResponseEntity<ModVenda> saveVenda(@RequestBody ModVenda newVenda) throws Exception {
         return ResponseEntity.ok(serVenda.saveVenda(newVenda));
     }
 

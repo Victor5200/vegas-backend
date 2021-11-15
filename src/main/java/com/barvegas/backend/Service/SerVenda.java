@@ -49,7 +49,7 @@ public class SerVenda {
     }
 
     //Salvar novo Venda
-    public ModVenda saveVenda(ModVenda newVenda) {
+    public ModVenda saveVenda(ModVenda newVenda) throws Exception {
         if (isNull(newVenda.getIdVenda())) {
             dimEstoqueList(newVenda.getItens());
         }
@@ -65,23 +65,28 @@ public class SerVenda {
     }
 
     //Diminuir estoque
-    public void dimEstoqueList(List<ModItems> idItem_Venda){
-        idItem_Venda.forEach(item -> {
+    public void dimEstoqueList(List<ModItems> idItem_Venda) throws Exception {
+        for (ModItems item : idItem_Venda) {
             ModProduto produto = serProduto.getByIDProdutos(item.getProduto().getIdProduto());
             Long qtd = produto.getQuantidade();
+
+            if (item.getQuantidade() > qtd) {
+                throw new Exception("Verificar estoque de " + produto.getNome());
+            }
+
             produto.setQuantidade(qtd - item.getQuantidade());
             repProduto.save(produto);
-        });
+        }
     }
 
     //Aumentar estoque
-    public void aumEstoque (List<ModItems> idItem_Venda){
-        idItem_Venda.forEach(item -> {
+    public void aumEstoque (List<ModItems> idItem_Venda) {
+        for (ModItems item : idItem_Venda) {
             ModProduto produto = serProduto.getByIDProdutos(item.getProduto().getIdProduto());
             Long qtd = produto.getQuantidade();
             produto.setQuantidade(qtd + item.getQuantidade());
             repProduto.save(produto);
-        });
+        }
     }
 
     //Buscar por ID membro
