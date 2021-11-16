@@ -4,6 +4,8 @@ import com.barvegas.backend.Model.ModItems;
 import com.barvegas.backend.Model.ModProduto;
 import com.barvegas.backend.Repository.RepItens;
 import com.barvegas.backend.Repository.RepProduto;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import javax.el.MethodNotFoundException;
@@ -11,11 +13,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
+@RequiredArgsConstructor
 public class SerProduto {
-
-    @Autowired
-    RepProduto repProduto;
-    RepItens repItens;
+    private final RepProduto repProduto;
+    private final RepItens repItens;
 
     //Buscar Todos
     public List<ModProduto> getAllProdutos(){

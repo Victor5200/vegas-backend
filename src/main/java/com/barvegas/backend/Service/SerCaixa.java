@@ -2,6 +2,8 @@ package com.barvegas.backend.Service;
 
 import com.barvegas.backend.Model.ModCaixa;
 import com.barvegas.backend.Repository.RepCaixa;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import javax.el.MethodNotFoundException;
@@ -11,10 +13,9 @@ import java.util.Optional;
 
 
 @Component
+@RequiredArgsConstructor
 public class SerCaixa {
-
-    @Autowired
-    RepCaixa repCaixa;
+    private final RepCaixa repCaixa;
 
     //Buscar Todos
     public List<ModCaixa> getAllCaixa(){

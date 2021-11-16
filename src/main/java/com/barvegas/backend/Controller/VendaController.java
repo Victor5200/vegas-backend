@@ -5,26 +5,26 @@ import com.barvegas.backend.Service.SerCaixa;
 import com.barvegas.backend.Service.SerVenda;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+
 
 @RestController
 @RequestMapping(path = "/api/vendas")
 @Api(value = "API REST VENDA")
 @CrossOrigin(origins = "*")
+@RequiredArgsConstructor
 public class VendaController {
-
-    @Autowired
-    SerVenda serVenda;
-    @Autowired
-    SerCaixa serCaixa;
+    private final SerVenda serVenda;
+    private final SerCaixa serCaixa;
 
     @PostMapping
     @ApiOperation(value = "Salva nova venda")
     public ResponseEntity<ModVenda> saveVenda(@RequestBody ModVenda newVenda) throws Exception {
-        return ResponseEntity.ok(serVenda.saveVenda(newVenda));
+        return new ResponseEntity<>(serVenda.saveVenda(newVenda), HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -41,8 +41,9 @@ public class VendaController {
 
     @DeleteMapping("/{idVenda}")
     @ApiOperation(value = "Deleta venda por ID.")
-    public void delVendaById(@PathVariable Long idVenda){
+    public ResponseEntity<Void> delVendaById(@PathVariable Long idVenda){
         serVenda.delVendaById(idVenda);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping(value = "/membro/{idCliente}")

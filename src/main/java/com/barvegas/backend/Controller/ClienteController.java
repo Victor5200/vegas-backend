@@ -4,19 +4,20 @@ import com.barvegas.backend.Model.ModCliente;
 import com.barvegas.backend.Service.SerCliente;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/membro")
 @Api(value = "API REST MEMBRO_CANDIDATO")
 @CrossOrigin(origins = "*")
+@RequiredArgsConstructor
 public class ClienteController {
-
-    @Autowired
-    SerCliente serCliente;
+    private final SerCliente serCliente;
 
     //Salvar Novo Cliente
     @PostMapping
@@ -50,8 +51,9 @@ public class ClienteController {
     //Deletar Produto por código
     @DeleteMapping(value = "/{id}")
     @ApiOperation(value = "Deleta cliente")
-    public void deleteClienteById(@PathVariable Long id){
+    public ResponseEntity<Void> deleteClienteById(@PathVariable Long id){
         serCliente.deleteClienteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     }

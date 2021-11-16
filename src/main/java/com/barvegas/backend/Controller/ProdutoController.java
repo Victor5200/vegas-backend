@@ -5,9 +5,11 @@ import com.barvegas.backend.Model.ModProduto;
 import com.barvegas.backend.Service.SerProduto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 
@@ -15,10 +17,9 @@ import java.util.List;
 @RequestMapping(path = "/api/produtos")
 @Api(value = "API REST PRODUTO")
 @CrossOrigin(origins = "*")
+@RequiredArgsConstructor
 public class ProdutoController {
-
-    @Autowired
-    SerProduto serProduto;
+    private final SerProduto serProduto;
 
     @PostMapping
     @ApiOperation(value = "Salva um novo produto.")
@@ -40,7 +41,8 @@ public class ProdutoController {
 
     @DeleteMapping("/{idProduto}")
     @ApiOperation(value = "Deleta produto por id.")
-    public void  delByIdProduto(@PathVariable Long idProduto){
+    public ResponseEntity<Void>  delByIdProduto(@PathVariable Long idProduto){
         serProduto.delByIdProduto(idProduto);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

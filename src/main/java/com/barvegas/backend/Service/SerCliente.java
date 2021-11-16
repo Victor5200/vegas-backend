@@ -2,6 +2,8 @@ package com.barvegas.backend.Service;
 
 import com.barvegas.backend.Model.ModCliente;
 import com.barvegas.backend.Repository.RepCliente;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import javax.el.MethodNotFoundException;
@@ -9,10 +11,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
+@RequiredArgsConstructor
 public class SerCliente {
-
-    @Autowired
-    RepCliente repCliente;
+    private final RepCliente repCliente;
 
     //Buscar todos
     public List<ModCliente> getAllClientes(){

@@ -4,9 +4,11 @@ import com.barvegas.backend.Model.ModCaixa;
 import com.barvegas.backend.Service.SerCaixa;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 
@@ -14,10 +16,9 @@ import java.util.List;
 @RequestMapping(path = "/api/caixa")
 @Api(value = "API REST CAIXA")
 @CrossOrigin(origins = "*")
+@RequiredArgsConstructor
 public class CaixaController {
-
-    @Autowired
-    SerCaixa serCaixa;
+    private final SerCaixa serCaixa;
 
     @GetMapping
     @ApiOperation(value = "Recupera lista de todos os caixas.")
@@ -33,8 +34,9 @@ public class CaixaController {
 
     @DeleteMapping("/{idCaixa}")
     @ApiOperation(value = "Deleta caixa por ID selecionado")
-    public void  delByIdCaixa(@PathVariable Long idCaixa){
+    public ResponseEntity<Void>  delByIdCaixa(@PathVariable Long idCaixa){
         serCaixa.delByIdCaixa(idCaixa);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 

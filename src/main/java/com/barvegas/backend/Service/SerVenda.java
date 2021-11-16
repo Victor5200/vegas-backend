@@ -5,6 +5,8 @@ import com.barvegas.backend.Repository.RepCaixa;
 import com.barvegas.backend.Repository.RepItens;
 import com.barvegas.backend.Repository.RepProduto;
 import com.barvegas.backend.Repository.RepVenda;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import javax.el.MethodNotFoundException;
@@ -13,25 +15,14 @@ import java.util.Optional;
 import static java.util.Objects.isNull;
 
 @Component
+@RequiredArgsConstructor
 public class SerVenda {
-
-    @Autowired
-    RepVenda repVenda;
-
-    @Autowired
-    RepProduto repProduto;
-
-    @Autowired
-    RepCaixa repCaixa;
-
-    @Autowired
-    RepItens repItens;
-
-    @Autowired
-    SerCaixa serCaixa;
-
-    @Autowired
-    SerProduto serProduto;
+    private final RepVenda repVenda;
+    private final RepProduto repProduto;
+    private final RepCaixa repCaixa;
+    private final RepItens repItens;
+    private final SerCaixa serCaixa;
+    private final SerProduto serProduto;
 
     //Buscar Todos
     public List<ModVenda> getAllVenda() {
