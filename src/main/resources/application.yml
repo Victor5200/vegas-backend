@@ -4,7 +4,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/barapp?useSSL=false&createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/barapp?allowPublicKeyRetrieval=true&useSSL=false
     username: root
     password: root
   jpa:
