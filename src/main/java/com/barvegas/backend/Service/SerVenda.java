@@ -1,15 +1,12 @@
 package com.barvegas.backend.Service;
 
 import com.barvegas.backend.Model.*;
-import com.barvegas.backend.Repository.RepCaixa;
-import com.barvegas.backend.Repository.RepItens;
-import com.barvegas.backend.Repository.RepProduto;
-import com.barvegas.backend.Repository.RepVenda;
-import lombok.AllArgsConstructor;
+import com.barvegas.backend.Repository.*;
+import com.barvegas.backend.exception.BadRequestException;
+import com.barvegas.backend.exception.ServerErrorException;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import javax.el.MethodNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import static java.util.Objects.isNull;
@@ -19,9 +16,7 @@ import static java.util.Objects.isNull;
 public class SerVenda {
     private final RepVenda repVenda;
     private final RepProduto repProduto;
-    private final RepCaixa repCaixa;
-    private final RepItens repItens;
-    private final SerCaixa serCaixa;
+    private final RepCliente repCliente;
     private final SerProduto serProduto;
 
     //Buscar Todos
@@ -33,7 +28,7 @@ public class SerVenda {
     public ModVenda getByIDVenda(Long idVenda) {
         Optional<ModVenda> optionalModVenda = repVenda.findById(idVenda);
         if (!optionalModVenda.isPresent()) {
-            throw new MethodNotFoundException("Venda não encontrada...");
+            throw new BadRequestException("Venda não encontrada.");
         }
         return optionalModVenda.get();
     }
@@ -50,6 +45,9 @@ public class SerVenda {
     //Deletar Venda por ID
     public void delVendaById(Long idVenda) {
         Optional<ModVenda> oldVenda = repVenda.findById(idVenda);
+        if(oldVenda.isEmpty()){
+            throw new ServerErrorException("A venda que deseja deletar não existe.");
+        }
         aumEstoque(oldVenda.get().getItens());
         repVenda.deleteById(idVenda);
     }
@@ -61,7 +59,7 @@ public class SerVenda {
             Long qtd = produto.getQuantidade();
 
             if (item.getQuantidade() > qtd) {
-                throw new Exception("Verificar estoque de " + produto.getNome());
+                throw new BadRequestException("Verificar estoque de " + produto.getNome());
             }
 
             produto.setQuantidade(qtd - item.getQuantidade());
@@ -81,6 +79,9 @@ public class SerVenda {
 
     //Buscar por ID membro
     public ModVenda findVendaByIdCliente(Long id){
+        if(repCliente.findById(id).isEmpty()){
+            throw new BadRequestException("O Cliente procurado não existe.");
+        }
         return repVenda.findModVendaByCliente_Id(id);
     }
 

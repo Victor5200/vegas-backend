@@ -4,11 +4,10 @@ import com.barvegas.backend.Model.ModItems;
 import com.barvegas.backend.Model.ModProduto;
 import com.barvegas.backend.Repository.RepItens;
 import com.barvegas.backend.Repository.RepProduto;
-import lombok.AllArgsConstructor;
+import com.barvegas.backend.exception.BadRequestException;
+import com.barvegas.backend.exception.ServerErrorException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import javax.el.MethodNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,11 +24,11 @@ public class SerProduto {
 
     //Buscar por id
     public ModProduto getByIDProdutos(Long idProduto){
-        Optional<ModProduto> optionalModProduto = repProduto.findById(idProduto);
-        if(!optionalModProduto.isPresent()){
-            throw new MethodNotFoundException("Produto não encontrado...");
+        Optional<ModProduto> optionalProduto = repProduto.findById(idProduto);
+        if(optionalProduto.isEmpty()){
+            throw new BadRequestException("Produto não encontrado.");
         }
-        return optionalModProduto.get();
+        return optionalProduto.get();
     }
 
     //Salvar novo Produto
@@ -39,6 +38,9 @@ public class SerProduto {
 
     //Deletar produto por ID
     public void delByIdProduto(Long idProduto){
+        if(repProduto.findById(idProduto).isEmpty()){
+            throw new ServerErrorException("O produto que deseja deletar não existe.");
+        }
         repProduto.deleteById(idProduto);
     }
 
@@ -46,7 +48,7 @@ public class SerProduto {
     public ModItems getByIdItem(Long idVenda) {
         Optional<ModItems> optionalModItems = repItens.findById(idVenda);
         if (!optionalModItems.isPresent()) {
-            throw new MethodNotFoundException("Venda não encontrada...");
+            throw new BadRequestException("Venda não encontrada...");
         }
         return optionalModItems.get();
     }

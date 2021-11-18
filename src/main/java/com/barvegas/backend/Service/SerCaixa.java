@@ -2,6 +2,8 @@ package com.barvegas.backend.Service;
 
 import com.barvegas.backend.Model.ModCaixa;
 import com.barvegas.backend.Repository.RepCaixa;
+import com.barvegas.backend.exception.BadRequestException;
+import com.barvegas.backend.exception.ServerErrorException;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import javax.el.MethodNotFoundException;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+import java.util.prefs.BackingStoreException;
 
 
 @Component
@@ -26,7 +29,7 @@ public class SerCaixa {
     public ModCaixa getByIDCaixa(Long id){
         Optional<ModCaixa> optionalModCaixa = repCaixa.findById(id);
         if(!optionalModCaixa.isPresent()){
-            throw new MethodNotFoundException("Caixa não encontrado ...");
+            throw new BadRequestException("Caixa não encontrado ...");
         }
         return optionalModCaixa.get();
     }
@@ -39,6 +42,8 @@ public class SerCaixa {
 
     //Deletar caixa por ID
     public void delByIdCaixa(Long id){
+        if(repCaixa.findById(id).isEmpty())
+            throw new ServerErrorException("O Caixa que deseja deletar não existe");
         repCaixa.deleteById(id);
     }
 
