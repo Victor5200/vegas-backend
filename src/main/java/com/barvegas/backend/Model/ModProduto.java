@@ -23,18 +23,21 @@ public class ModProduto {
     @SequenceGenerator(name = "seq_produto", sequenceName = "seq_produto")
     private Long id;
 
+    @Column(nullable = false)
     private String nome;
 
-    @Column(precision = 5, scale = 2)
+    @Column(precision = 5, scale = 2,nullable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private BigDecimal valorVenda;
 
-    @Column(precision = 5, scale = 2)
+    @Column(precision = 5, scale = 2,nullable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private BigDecimal valorCusto;
 
+    @Column
     private String fornecedor;
 
+    @Column(nullable = false)
     private Long quantidade;
 
 }
