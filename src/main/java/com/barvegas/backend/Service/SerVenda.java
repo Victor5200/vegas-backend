@@ -7,8 +7,10 @@ import com.barvegas.backend.exception.ServerErrorException;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
 import java.util.List;
 import java.util.Optional;
+
 import static java.util.Objects.isNull;
 
 @Component
@@ -35,9 +37,8 @@ public class SerVenda {
 
     //Salvar novo Venda
     public ModVenda saveVenda(ModVenda newVenda) throws Exception {
-        if (isNull(newVenda.getId())) {
-            dimEstoqueList(newVenda.getItens());
-        }
+        dimEstoqueList(newVenda.getItens());
+
 
         return repVenda.save(newVenda);
     }
@@ -45,7 +46,7 @@ public class SerVenda {
     //Deletar Venda por ID
     public void delVendaById(Long idVenda) {
         Optional<ModVenda> oldVenda = repVenda.findById(idVenda);
-        if(oldVenda.isEmpty()){
+        if (oldVenda.isEmpty()) {
             throw new ServerErrorException("A venda que deseja deletar não existe.");
         }
         aumEstoque(oldVenda.get().getItens());
@@ -55,20 +56,22 @@ public class SerVenda {
     //Diminuir estoque
     public void dimEstoqueList(List<ModItems> idItem_Venda) throws Exception {
         for (ModItems item : idItem_Venda) {
-            ModProduto produto = serProduto.getByIDProdutos(item.getProduto().getId());
-            Long qtd = produto.getQuantidade();
+            if (isNull(item.getId())) {
+                ModProduto produto = serProduto.getByIDProdutos(item.getProduto().getId());
+                Long qtd = produto.getQuantidade();
 
-            if (item.getQuantidade() > qtd) {
-                throw new BadRequestException("Verificar estoque de " + produto.getNome());
+                if (item.getQuantidade() > qtd) {
+                    throw new BadRequestException("Verificar estoque de " + produto.getNome());
+                }
+
+                produto.setQuantidade(qtd - item.getQuantidade());
+                repProduto.save(produto);
             }
-
-            produto.setQuantidade(qtd - item.getQuantidade());
-            repProduto.save(produto);
         }
     }
 
     //Aumentar estoque
-    public void aumEstoque (List<ModItems> idItem_Venda) {
+    public void aumEstoque(List<ModItems> idItem_Venda) {
         for (ModItems item : idItem_Venda) {
             ModProduto produto = serProduto.getByIDProdutos(item.getProduto().getId());
             Long qtd = produto.getQuantidade();
@@ -78,15 +81,15 @@ public class SerVenda {
     }
 
     //Buscar por ID membro
-    public ModVenda findVendaByIdCliente(Long id){
-        if(repCliente.findById(id).isEmpty()){
+    public ModVenda findVendaByIdCliente(Long id) {
+        if (repCliente.findById(id).isEmpty()) {
             throw new BadRequestException("O Cliente procurado não existe.");
         }
         return repVenda.findModVendaByCliente_Id(id);
     }
 
     //Buscar Lista
-    public List<ModVenda> findListVendaDateNow(){
+    public List<ModVenda> findListVendaDateNow() {
         return repVenda.retornaTodasAsComandasDoDia();
     }
 }
