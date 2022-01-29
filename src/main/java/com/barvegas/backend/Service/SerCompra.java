@@ -29,9 +29,6 @@ public class SerCompra {
         produto.setQuantidade(qtd + compraSalva.getQuantidade());
         repProduto.save(produto);
 
-        // agora eu preciso buscar o produto, ver a quantidade que ele tem e somar com a quantidade
-        // que existe no objeto de ModCompras newCompras.getQuantidade();
-
         return  compraSalva;
     }
 }

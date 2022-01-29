@@ -19,7 +19,7 @@ public class CompraController {
     private SerCompra serCompra;
 
     @PostMapping
-    public ResponseEntity<Void> saveCompras(@PathVariable ModCompras idCompra) {
+    public ResponseEntity<Void> saveCompras(@RequestBody ModCompras idCompra) {
         serCompra.saveCompras(idCompra);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
